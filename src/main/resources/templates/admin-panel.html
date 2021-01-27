@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Admin Panel</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -43,12 +44,39 @@
 
 <body>
 
-<div th:replace="~{navigation :: navi(AdminDashboard)}" />
+<div th:replace="~{navigation :: navi(AdminDashboard)}"/>
 
 <div class="container">
     <h1>Admin Panel</h1>
-    <br>
-    <span th:text="${email}"/>
+    <div class="container">
+        <div class="row py-2">
+            <div class="col-12">
+                <table class="table table-bordered my-2">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Login</th>
+                        <th scope="col" sec:authorize="hasRole('ADMIN')">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <th scope="row" th:text="${user.id}">1</th>
+                        <td th:text="${user.userName}">User name</td>
+                        <td sec:authorize="hasRole('ADMIN')">
+                            <a class="btn btn-success" th:href="@{/user/{id}(id = ${user.id})}"><i
+                                    class="fas fa-edit"></i></a>
+                            <form class="d-inline" th:action="@{/user/{id}/delete(id = ${user.id})}" th:method="delete">
+                                <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <!--===============================================================================================-->

@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id int(11) NOT NULL AUTO_INCREMENT,
   username varchar(50) NOT NULL,
-  password char(80) NOT NULL,
+  password varchar(255) NOT NULL,
   first_name varchar(50) NOT NULL,
   last_name varchar(50) NOT NULL,
   email varchar(50) NOT NULL,
@@ -26,7 +26,9 @@ CREATE TABLE users (
 
 INSERT INTO users (username,password,first_name,last_name,email)
 VALUES
-('alex','$2a$10$CGamJWPYokRss2FX6WcBJOgFIDKyUoCYnrGtepfVQyDSTdngSxrzK','Alex','GeekBrains','alex@gb.com');
+('konstantin','$2a$10$q9jC/6lXg0LzPykfKcC9PuegkjmkCggoI2x9CHzuQor/teFx.FoPq','Konstantin','X5','kayen@x5.com'),
+('ivan','$2a$10$q9jC/6lXg0LzPykfKcC9PuegkjmkCggoI2x9CHzuQor/teFx.FoPq','Ivan','X5','ivan@x5.com'),
+('elena','$2a$10$q9jC/6lXg0LzPykfKcC9PuegkjmkCggoI2x9CHzuQor/teFx.FoPq','Elena','X5','elena@x5.com');
 
 DROP TABLE IF EXISTS users_roles;
 
@@ -49,14 +51,14 @@ CREATE TABLE users_roles (
 
 INSERT INTO users_roles (user_id, role_id)
 VALUES
-(1, 1),
-(1, 2),
-(1, 3);
+(1, 3),
+(2, 1),
+(3, 2);
 
 DROP TABLE IF EXISTS students;
 
 CREATE TABLE students (
-	id int(11) NOT NULL AUTO_INCREMENT,
+    id int(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB CHARSET=utf8;
@@ -64,7 +66,7 @@ CREATE TABLE students (
 DROP TABLE IF EXISTS courses;
 
 CREATE TABLE courses (
-	id int(11) NOT NULL AUTO_INCREMENT,
+    id int(11) NOT NULL AUTO_INCREMENT,
     title VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB CHARSET=utf8;
@@ -72,7 +74,7 @@ CREATE TABLE courses (
 DROP TABLE IF EXISTS students_courses;
 
 CREATE TABLE students_courses (
-	student_id int(11) NOT NULL,
+    student_id int(11) NOT NULL,
     course_id int(11) NOT NULL,
 
     PRIMARY KEY (student_id, course_id),
