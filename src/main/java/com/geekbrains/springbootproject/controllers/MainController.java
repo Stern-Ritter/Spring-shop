@@ -1,29 +1,23 @@
 package com.geekbrains.springbootproject.controllers;
 
 import com.geekbrains.springbootproject.entities.Product;
-import com.geekbrains.springbootproject.repositories.ProductsRepository;
 import com.geekbrains.springbootproject.services.CategoryService;
-import com.geekbrains.springbootproject.services.ProductsService;
+import com.geekbrains.springbootproject.services.ProductsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ViewResolver;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class MainController {
-    private ProductsService productsService;
+    private ProductsServiceImpl productsService;
     private CategoryService categoryService;
 
     @Autowired
-    public void setProductsService(ProductsService productsService) {
+    public void setProductsService(ProductsServiceImpl productsService) {
         this.productsService = productsService;
     }
 
@@ -62,7 +56,7 @@ public class MainController {
             model.addAttribute("productCreationError", "Product title already exists");
             return "edit-product";
         }
-        productsService.saveOrUpdate(product);
+        productsService.save(product);
         return "redirect:/";
     }
 }

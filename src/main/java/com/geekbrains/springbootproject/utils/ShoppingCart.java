@@ -2,7 +2,7 @@ package com.geekbrains.springbootproject.utils;
 
 import com.geekbrains.springbootproject.entities.OrderItem;
 import com.geekbrains.springbootproject.entities.Product;
-import com.geekbrains.springbootproject.services.ProductsService;
+import com.geekbrains.springbootproject.services.ProductsServiceImpl;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,10 +17,10 @@ import java.util.List;
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCart {
-    private ProductsService productsService;
+    private ProductsServiceImpl productsService;
 
     @Autowired
-    public void setProductsService(ProductsService productsService) {
+    public void setProductsService(ProductsServiceImpl productsService) {
         this.productsService = productsService;
     }
 

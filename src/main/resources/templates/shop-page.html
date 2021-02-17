@@ -21,19 +21,19 @@
 <div class="container">
     <br>
 
-    <h1 th:text="Фильтры" />
+    <h1 th:text="Фильтры"/>
 
     <form th:action="@{/shop}" method="get">
-        <input hidden th:value="${page}" th:name="page">
-        <input th:value="${word != null} ? ${word}" th:name="word" type="text" placeholder="Название">
-        <input th:value="${min != null} ? ${min}" th:name="min" type="number" placeholder="Минимальная цена">
-        <input th:value="${max != null} ? ${max}" th:name="max" type="number" placeholder="Максимальная цена">
+        <input hidden th:value="${param.page}" th:name="page">
+        <input th:value="${param.word}" th:name="word" type="text" placeholder="Название">
+        <input th:value="${param.min}" th:name="min" type="number" placeholder="Минимальная цена">
+        <input th:value="${param.max}" th:name="max" type="number" placeholder="Максимальная цена">
         <button type="submit" class="btn btn-primary">Фильтровать</button>
     </form>
 
     <br>
 
-    <h1 th:text="#{products.list}" />
+    <h1 th:text="#{products.list}"/>
 
     <table class="table table-hover">
         <thead>
@@ -46,13 +46,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product : ${products}">
+        <tr th:each="product : ${products.content}">
             <td th:text="${product.id}"/>
             <td>
-                <img th:if="${product.images.size() > 0}" width="40" height="40" th:src="@{'/images/' + ${product.images[0].path}}" />
+                <img th:if="${product.images.size() > 0}" width="40" height="40"
+                     th:src="@{'/images/' + ${product.images[0].path}}"/>
             </td>
-            <td >
-                <a th:text="${product.title}" th:href="@{'/shop/product_info/' + ${product.id}}" />
+            <td>
+                <a th:text="${product.title}" th:href="@{'/shop/product_info/' + ${product.id}}"/>
             </td>
 
             <td th:text="${product.price}"/>
@@ -66,8 +67,10 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <!--<li class="page-item"><a class="page-link" href="#">Previous</a></li>-->
-            <li th:each="i : ${#numbers.sequence(1, totalPage, 1)}">
-                <a th:class="page-link" th:text="${i}" th:classappend="${page == i ? 'active' : ''}" th:href="@{'/shop/?page=' + ${i} + ${filters}}"></a>
+            <li th:each="i : ${#numbers.sequence(1, products.totalPages, 1)}">
+                <a th:class="page-link" th:text="${i}" th:classappend="${page == i ? 'active' : ''}"
+                   th:href="@{/shop(page=${i}, size=${products.size},
+                    word=${param.word}, min=${param.min}, max=${param.max})}"></a>
             </li>
             <!--<li class="page-item"><a class="page-link" href="#">Next</a></li>-->
         </ul>
