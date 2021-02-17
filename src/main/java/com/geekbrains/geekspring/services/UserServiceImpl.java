@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +39,28 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public Optional<User> findById(Long id) {
+		return userRepository.findById(id);
+	}
+
+	@Override
+	@Transactional
+	public void save(User user) {
+		userRepository.save(user);
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(Long id) {
+		userRepository.deleteById(id);
 	}
 
 	@Override
