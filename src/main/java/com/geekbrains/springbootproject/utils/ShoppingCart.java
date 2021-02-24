@@ -49,7 +49,6 @@ public class ShoppingCart {
             items.add(orderItem);
         }
         orderItem.setQuantity(orderItem.getQuantity() + 1);
-        recalculate();
     }
 
     public void setQuantity(Product product, Long quantity) {
@@ -58,7 +57,6 @@ public class ShoppingCart {
             return;
         }
         orderItem.setQuantity(quantity);
-        recalculate();
     }
 
     public void remove(Product product) {
@@ -67,10 +65,9 @@ public class ShoppingCart {
             return;
         }
         items.remove(orderItem);
-        recalculate();
     }
 
-    private void recalculate() {
+    public void recalculate() {
         totalCost = 0.0;
         for (OrderItem o : items) {
             o.setTotalPrice(o.getQuantity() * o.getProduct().getPrice());
