@@ -4,6 +4,7 @@ import com.geekbrains.springbootproject.entities.Order;
 import com.geekbrains.springbootproject.entities.User;
 import com.geekbrains.springbootproject.services.*;
 import com.geekbrains.springbootproject.utils.ShoppingCart;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.time.LocalDateTime;
 
+@Slf4j
 @Controller
 public class OrderController {
     private UserService userService;
@@ -68,6 +69,7 @@ public class OrderController {
         order.setDeliveryPrice(0.0);
         order = orderService.saveOrder(order);
         model.addAttribute("order", order);
+        shoppingCart.processFromQueue();
         return "order-before-purchase";
     }
 

@@ -35,8 +35,12 @@
                     <a class="nav-link" th:href="@{/info}">Информация<span class="sr-only">(current)</span></a>
                 </li>
                 <li sec:authorize="hasRole('ADMIN')" class="nav-item"
+                    th:classappend="${activeTab == 'AdminDashboard' ? 'active' : ''}">
+                    <a class="nav-link" th:href="@{/admin}">Админка</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item"
                     th:classappend="${activeTab == 'Products' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/product/edit/0}">Добавить товар</a>
+                    <a class="nav-link" th:href="@{/products/edit/0}">Добавить товар</a>
                 </li>
                 <li class="nav-item"
                     th:classappend="${activeTab == 'Cart' ? 'active' : ''}">
