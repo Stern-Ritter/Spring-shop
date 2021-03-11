@@ -45,6 +45,21 @@ public class ProductsServiceImpl implements ProductService {
     }
 
     @Override
+    public boolean delete(Long id){
+        if (productsRepository.findById(id).isPresent()) {
+            productsRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isProductWithTitleExists(String productTitle) {
+        return productsRepository.findOneByTitle(productTitle) != null;
+    }
+
+    @Override
     public Page<Product> findWithFilter(Optional<String> nameFilter,
                                         Optional<BigDecimal> minPrice,
                                         Optional<BigDecimal> maxPrice,

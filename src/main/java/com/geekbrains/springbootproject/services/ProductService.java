@@ -12,7 +12,11 @@ public interface ProductService {
 
     Product findByTitle(String title);
 
+    boolean isProductWithTitleExists(String productTitle);
+
     Product save(Product product);
+
+    boolean delete(Long productId);
 
     Page<Product> findWithFilter(Optional<String> nameFilter,
                                  Optional<BigDecimal> minPrice,

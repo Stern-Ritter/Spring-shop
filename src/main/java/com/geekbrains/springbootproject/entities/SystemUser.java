@@ -1,6 +1,5 @@
 package com.geekbrains.springbootproject.entities;
 
-
 import com.geekbrains.springbootproject.validation.FieldMatch;
 import lombok.Data;
 import lombok.NoArgsConstructor;

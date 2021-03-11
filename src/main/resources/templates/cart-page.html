@@ -33,7 +33,9 @@
                 <th>Название товара</th>
                 <th>Цена за ед.</th>
                 <th>Кол-во</th>
+                <th>Изменить кол-во</th>
                 <th>Сумма</th>
+                <th>Удалить</th>
             </tr>
             </thead>
             <tbody>
@@ -42,7 +44,10 @@
                 <td th:text="${cartItem.product.title}"/>
                 <td th:text="${cartItem.itemPrice}"/>
                 <td th:text="${cartItem.quantity}"/>
+                <td><button th:href="@{'/shop/cart/dec/' + ${cartItem.product.id}}" class="btn btn-success">-</button>
+                    <button th:href="@{'/shop/cart/add/' + ${cartItem.product.id}}" class="btn btn-success">+</button></td>
                 <td th:text="${cartItem.totalPrice}"/>
+                <td><button th:href="@{'/shop/cart/delete/' + ${cartItem.product.id}}" class="btn btn-danger">Удалить</button></td>
             </tr>
             <tr>
                 <td/><td/><td/>

@@ -32,6 +32,7 @@
                 <article class="card-body">
                     <form th:action="@{/products/edit}" th:object="${product}" method="post" enctype="multipart/form-data">
                         <input th:field="*{id}" type="hidden" class="form-control">
+                        <input th:field="*{createAt}" type="hidden" class="form-control">
 
                         <div class="form-row">
                             <div class="col form-group">

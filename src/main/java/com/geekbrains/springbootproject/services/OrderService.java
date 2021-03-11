@@ -5,7 +5,7 @@ import com.geekbrains.springbootproject.entities.OrderItem;
 import com.geekbrains.springbootproject.entities.OrderStatus;
 import com.geekbrains.springbootproject.entities.User;
 import com.geekbrains.springbootproject.repositories.OrderRepository;
-import com.geekbrains.springbootproject.utils.ShoppingCart;
+import com.geekbrains.springbootproject.utils.ShopCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Order makeOrder(ShoppingCart cart, User user) {
+    public Order makeOrder(ShopCart cart, User user) {
         Order order = new Order();
         order.setId(0L);
         order.setUser(user);
