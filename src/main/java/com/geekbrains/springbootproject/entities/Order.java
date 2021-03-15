@@ -2,6 +2,7 @@ package com.geekbrains.springbootproject.entities;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -60,6 +61,6 @@ public class Order {
     private LocalDateTime createAt;
 
     @Column(name = "update_at")
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updateAt;
 }

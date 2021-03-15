@@ -5,8 +5,6 @@ import com.geekbrains.springbootproject.repositories.DeliveryAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class DeliveryAddressService {
     private DeliveryAddressRepository deliveryAddressRepository;
@@ -16,11 +14,11 @@ public class DeliveryAddressService {
         this.deliveryAddressRepository = deliveryAddressRepository;
     }
 
-    public List<DeliveryAddress> getUserAddresses(Long userId) {
-        return deliveryAddressRepository.findAllByUserId(userId);
+    public DeliveryAddress getUserAddress(Long userId) {
+        return deliveryAddressRepository.findFirstByUser_Id(userId);
     }
 
-    public DeliveryAddress getUserAddressById(Long id) {
-        return deliveryAddressRepository.findById(id).orElse(null);
+    public void save(DeliveryAddress deliveryAddress){
+        deliveryAddressRepository.save(deliveryAddress);
     }
 }

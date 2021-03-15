@@ -2,7 +2,7 @@ package com.geekbrains.springbootproject.utils;
 
 import com.geekbrains.springbootproject.entities.OrderItem;
 import com.geekbrains.springbootproject.entities.Product;
-import com.geekbrains.springbootproject.services.ProductsServiceImpl;
+import com.geekbrains.springbootproject.services.ProductServiceImpl;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
@@ -20,7 +20,7 @@ import java.util.List;
 @Data
 public class ShopCart {
 
-    private final ProductsServiceImpl productsService;
+    private final ProductServiceImpl productsService;
     private List<OrderItem> items;
     private Double totalCost;
 

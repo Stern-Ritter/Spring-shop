@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Service
 public class ImageSaverService {
-    private static final String UPLOADED_FOLDER = "./resources/static/images/";
+    private static final String UPLOADED_FOLDER = "./src/main/resources/static/images/";
 
     private final Logger logger = LoggerFactory.getLogger(ImageSaverService.class);
 

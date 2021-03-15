@@ -28,28 +28,28 @@ public class RegistrationController {
     }
 
     @GetMapping("/showRegistrationForm")
-    public String showMyLoginPage(Model theModel) {
+    public String showLoginPage(Model theModel) {
         theModel.addAttribute("systemUser", new SystemUser());
         return "registration-form";
     }
 
-    // Binding Result после @ValidModel !!!
     @PostMapping("/processRegistrationForm")
-    public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser theSystemUser, BindingResult theBindingResult, Model theModel) {
-        String userName = theSystemUser.getUserName();
+    public String processRegistrationForm(@Valid @ModelAttribute("systemUser") SystemUser systemUser,
+                                          BindingResult theBindingResult, Model model) {
+        String userName = systemUser.getUserName();
         log.debug("Processing registration form for: " + userName);
         if (theBindingResult.hasErrors()) {
             return "registration-form";
         }
         User existing = userService.findByUserName(userName);
         if (existing != null) {
-            // theSystemUser.setUserName(null);
-            theModel.addAttribute("systemUser", theSystemUser);
-            theModel.addAttribute("registrationError", "User with current username already exists");
+            // systemUser.setUserName(null);
+            model.addAttribute("systemUser", systemUser);
+            model.addAttribute("registrationError", "Пользователь с таким именем уже существует");
             log.debug("User name already exists.");
             return "registration-form";
         }
-        userService.save(theSystemUser);
+        userService.save(systemUser);
         log.debug("Successfully created user: " + userName);
         return "registration-confirmation";
     }

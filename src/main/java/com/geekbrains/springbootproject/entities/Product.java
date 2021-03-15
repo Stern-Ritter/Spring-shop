@@ -39,22 +39,19 @@ public class Product implements Serializable {
     private Long id;
 
     @ManyToOne
-    @NotNull(message = "категория не выбрана")
+    @NotNull(message = "Категория не выбрана")
     @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(name = "vendor_code")
-    @NotNull(message = "не может быть пустым")
-    @Pattern(regexp = "([0-9]{1,})", message = "недопустимый символ")
-    @Size(min = 8, max = 8, message = "требуется 8 числовых символов")
+    @NotNull(message = "Не может быть пустым")
+    @Pattern(regexp = "([0-9]{1,})", message = "Недопустимый символ")
+    @Size(min = 8, max = 8, message = "Требуется 8 числовых символов")
     private String vendorCode;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, mappedBy = "product")
-    private List<ProductImage> images;
-
     @Column(name = "title")
-    @NotNull(message = "не может быть пустым")
-    @Size(min = 5, max = 250, message = "требуется минимум 5 символов")
+    @NotNull(message = "Не может быть пустым")
+    @Size(min = 5, max = 250, message = "Требуется минимум 5 символов")
     private String title;
 
     @Column(name = "short_description")
@@ -64,8 +61,8 @@ public class Product implements Serializable {
     private String fullDescription;
 
     @Column(name = "price")
-    @NotNull(message = "не может быть пустым")
-    @DecimalMin(value = "0.01", message = "минимальное значение 0")
+    @NotNull(message = "Не может быть пустым")
+    @DecimalMin(value = "0.01", message = "Минимальное значение 0")
     @Digits(integer = 10, fraction = 2)
     private double price;
 
@@ -77,15 +74,13 @@ public class Product implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updateAt;
 
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, mappedBy = "product")
+    private List<ProductImage> images;
+
     public void addImage(ProductImage productImage) {
         if (images == null) {
             images = new ArrayList<>();
         }
-        images.add(productImage);
-    }
-
-    @Override
-    public String toString() {
-        return "Product title = '" + title + "'";
+        images.add(0, productImage);
     }
 }

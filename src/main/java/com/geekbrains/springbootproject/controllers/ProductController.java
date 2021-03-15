@@ -38,17 +38,17 @@ public class ProductController {
         }
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "/edit-product";
+        return "edit-product";
     }
 
     @PostMapping("/edit")
-    public String processProductAddForm(@Valid @ModelAttribute("product") Product product, BindingResult theBindingResult,
+    public String processProductAddForm(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult,
                                         Model model, @RequestParam("file") MultipartFile file) {
         if (product.getId() == 0 && productService.isProductWithTitleExists(product.getTitle())) {
-            theBindingResult.addError(new ObjectError("product.title", "Товар с таким названием уже существует"));
+            bindingResult.addError(new ObjectError("product.title", "Товар с таким названием уже существует"));
         }
 
-        if (theBindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.getAllCategories());
             return "edit-product";
         }

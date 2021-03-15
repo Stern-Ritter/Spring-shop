@@ -1,8 +1,8 @@
 package com.geekbrains.springbootproject.controllers;
 
 import com.geekbrains.springbootproject.entities.Product;
-import com.geekbrains.springbootproject.services.ProductsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.geekbrains.springbootproject.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +15,10 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/shop")
 public class ShopController {
-
-
-    private ProductsServiceImpl productsService;
-
-    @Autowired
-    public void setProductsService(ProductsServiceImpl productsService) {
-        this.productsService = productsService;
-    }
+    private final ProductService productsService;
 
     @GetMapping
     public String shopPage(Model model,

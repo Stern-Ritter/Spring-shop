@@ -1,6 +1,7 @@
 package com.geekbrains.springbootproject.services;
 
 import com.geekbrains.springbootproject.entities.Order;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service
+@Slf4j
 public class MailService {
     private JavaMailSender sender;
     private MailMessageBuilder messageBuilder;
@@ -37,17 +39,17 @@ public class MailService {
             helper.setText(text, true);
             helper.setSubject(subject);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            log.error("Ошибка формирования письма: email - {}, subject - {}.", email, subject);
         }
 
         try {
             executorService.submit(() -> sender.send(message));
         } catch (MailException e) {
-            e.printStackTrace();
+            log.error("Ошибка отправки сообщения: {}.", e.getMessage());
         }
     }
 
     public void sendOrderMail(Order order) {
-        sendMail(order.getUser().getEmail(), String.format("Заказ %d%n отправлен в обработку", order.getId()), messageBuilder.buildOrderEmail(order));
+        sendMail(order.getUser().getEmail(), String.format("Заказ #%d%n отправлен в обработку", order.getId()), messageBuilder.buildOrderEmail(order));
     }
 }

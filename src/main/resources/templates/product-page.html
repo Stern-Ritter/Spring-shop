@@ -20,24 +20,26 @@
 
 <div class="container">
     <br>
-    <h1>Страница товара</h1>
-    <div th:object="${product}">
-        <h1 th:text="*{title}"></h1>
-        <br>
-        <img th:if="${product.images.size() > 0}" width="40" height="40"
+    <h1 style="text-align:center">Страница товара</h1>
+
+
+    <div class="card" style="width: 18rem" th:object="${product}">
+        <img th:if="${product.images.size() > 0}" class="card-img-top"
              th:src="@{'/images/' + ${product.images[0].path}}"/>
-        <br>
-        <label for="productCost">Цена</label>
-        <br>
-        <a th:text="*{price}" id="productCost"></a>
-        <br>
-        <a th:text="*{category.title}"></a>
-        <br>
-        <a th:text="*{shortDescription}"></a>
-        <br>
-        <a th:text="*{fullDescription}"></a>
-        <br>
-        <a th:href="@{'/shop/cart/add/' + ${product.id}}" class="btn btn-primary">Добавить в корзину</a>
+
+        <div class="card-body">
+            <h5 class="card-title" th:text="*{title}"></h5>
+            <p class="card-text" th:text="*{shortDescription}"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:text="${'Цена: ' + product.price + ' руб.'}"></li>
+            <li class="list-group-item" th:text="${'Категория: ' + product.category.title}"></li>
+            <li class="list-group-item" th:text="${'Полное описание: ' + product.fullDescription}"></li>
+        </ul>
+        <div class="card-body">
+            <a th:href="@{'/shop/cart/add/' + ${product.id}}" class="btn btn-primary">Добавить в корзину</a>
+        </div>
     </div>
 </div>
 </body>
+

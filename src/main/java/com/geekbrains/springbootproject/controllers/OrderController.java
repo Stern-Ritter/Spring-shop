@@ -1,5 +1,6 @@
 package com.geekbrains.springbootproject.controllers;
 
+import com.geekbrains.springbootproject.entities.DeliveryAddress;
 import com.geekbrains.springbootproject.entities.Order;
 import com.geekbrains.springbootproject.entities.User;
 import com.geekbrains.springbootproject.services.DeliveryAddressService;
@@ -50,26 +51,33 @@ public class OrderController {
             return "redirect:/login";
         }
         User user = userService.findByUserName(principal.getName());
+        DeliveryAddress deliveryAddress = deliverAddressService.getUserAddress(user.getId());
+        String lastAddress = deliveryAddress == null ? "" : deliveryAddress.getAddress();
         model.addAttribute("cart", shopCart);
-        model.addAttribute("deliveryAddresses", deliverAddressService.getUserAddresses(user.getId()));
+        model.addAttribute("deliveryAddress", lastAddress);
         return "order-filler";
     }
 
     @PostMapping("/order/confirm")
-    public String orderConfirm(Model model, Principal principal, @RequestParam("phoneNumber") String phoneNumber,
-                               @RequestParam("deliveryAddress") Long deliveryAddressId) {
+    public String orderConfirm(Model model, Principal principal, @RequestParam("deliveryAddress") String deliveryAddress,
+                               @RequestParam("phoneNumber") String phoneNumber) {
         if (principal == null) {
             return "redirect:/login";
         }
         User user = userService.findByUserName(principal.getName());
+        DeliveryAddress address = new DeliveryAddress();
+        address.setUser(user);
+        address.setAddress(deliveryAddress);
+        deliverAddressService.save(address);
+
         Order order = orderService.makeOrder(shopCart, user);
-        order.setDeliveryAddress(deliverAddressService.getUserAddressById(deliveryAddressId));
+        order.setDeliveryAddress(address);
         order.setPhoneNumber(phoneNumber);
         order.setDeliveryDate(LocalDateTime.now().plusDays(7));
-        order.setDeliveryPrice(0.0);
+        order.setDeliveryPrice(10.0);
         order = orderService.saveOrder(order);
         model.addAttribute("order", order);
-        return "order-before-purchase";
+        return "order-result";
     }
 
     @GetMapping("/order/result/{id}")

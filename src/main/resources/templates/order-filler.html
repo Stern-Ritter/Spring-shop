@@ -45,17 +45,21 @@
             </tbody>
         </table>
 
-        <span>Укажите адрес доставки</span>
-        <select class="form-control" name="deliveryAddress" id="dropDeliveryAddresses">
-            <option th:each="o : ${deliveryAddresses}" th:value="${o.id}" th:text="${o.address}"></option>
-        </select>
+        <div class="col form-group">
+            <label>Укажите адрес доставки</label>
+            <input type="text" th:value="*{deliveryAddress}" name="deliveryAddress" class="form-control input-sm">
+        </div>
+
+        <div class="col form-group">
+            <label>Укажите номер телефона</label>
+            <input type="text"  name="phoneNumber" class="form-control input-sm">
+        </div>
+
         <br>
-        <span>Укажите номер телефона</span>
-        <input type="text" name="phoneNumber" class="form-control input-sm">
-        <br>
+
         <div class="col-sm-6 controls">
             <button type="submit" class="btn btn-primary">Готово</button>
-            <button class="btn btn-secondary" th:href="@{/shop}">Вернуться в магазин</button>
+            <a class="btn btn-secondary" th:href="@{/shop}">Вернуться в магазин</a>
         </div>
     </form>
 </div>

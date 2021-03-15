@@ -20,26 +20,20 @@
         </thead>
 
         <tbody>
-        <tr th:each="orderItem, iterStat : ${order.orderItems}">
-            <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;"
-                th:styleappend="${iterStat.odd} ? 'background-color: rgba(0,0,0,.075);'"
-                th:text="${orderItem.product.title}"/>
-            <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;"
-                th:styleappend="${iterStat.odd} ? 'background-color: rgba(0,0,0,.075);'"
-                th:text="${orderItem.quantity}"/>
-            <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;"
-                th:styleappend="${iterStat.odd} ? 'background-color: rgba(0,0,0,.075);'"
-                th:text="${orderItem.totalPrice}"/>
+        <tr th:each="orderItem : ${order.orderItems}">
+            <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;" th:text="${orderItem.product.title}"/>
+            <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;" th:text="${orderItem.quantity}"/>
+            <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;" th:text="${orderItem.totalPrice}"/>
         </tr>
         </tbody>
         <tfoot>
-        <td style="padding: 20px; font-style: italic;">Итоговая сумма:</td>
-        <td style="padding: 20px; font-style: italic;"></td>
-        <td style="padding: 20px; font-style: italic;" th:utext="'<b>' + ${order.price}+ '</b>'"></td>
+        <td style="padding: 20px; font-style: italic; text-align: center;"><b>Итоговая сумма:</b>'</td>
+        <td style="padding: 20px; font-style: italic; text-align: center;"></td>
+        <td style="padding: 20px; font-style: italic; text-align: center;" th:utext="'<b>' + ${order.price}+ '</b>'"></td>
         </tfoot>
     </table>
 
-    <p>Благодарим за выбор нашей площадки</p>
+    <p>Благодарим за выбор нашего магазина</p>
 </div>
 </body>
 </html>

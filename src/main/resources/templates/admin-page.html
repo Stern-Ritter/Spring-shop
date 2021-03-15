@@ -24,6 +24,12 @@
 
     <br>
 
+    <form th:action="@{/admin/orders}" method="get">
+        <button type="submit" class="btn btn-primary">Заказы</button>
+    </form>
+
+    <br>
+
     <form th:action="@{/products/edit/0}" method="get">
         <button type="submit" class="btn btn-primary">Добавить новый товар</button>
     </form>
@@ -59,10 +65,15 @@
                      th:src="@{'/images/' + ${product.images[0].path}}"/></td>
             <td><a th:text="${product.title}" th:href="@{'/shop/product_info/' + ${product.id}}"/></td>
             <td th:text="${product.price}"/>
-            <td><button th:href="@{'/products/edit/' + ${product.id}}" class="btn btn-primary">Изменить</button>
-                <form th:action="@{'/products/delete/' + ${product.id}}" method="post">
-                    <button type="submit" class="btn btn-danger">Удалить</button>
-                </form>
+            <td>
+                <div class="form-row">
+                    <form th:action="@{'/products/edit/' + ${product.id}}" method="get">
+                        <button type="submit" class="btn btn-primary">Изменить</button>
+                    </form>
+                    <form th:action="@{'/products/delete/' + ${product.id}}" method="post">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
             </td>
         </tr>
         </tbody>

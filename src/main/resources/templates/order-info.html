@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <title th:text="${'Информация о заказе #' + order.id}"></title>
+
+    <link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+    <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+
+<div class="container">
+    <br>
+    <h1 th:text="${'Заказ #' + order.id}"></h1>
+    <p style="font-weight: bold; margin-bottom: 30px">Состав заказа</p>
+    <div class="card" th:object="${order}">
+        <table style="border-collapse: collapse">
+            <thead>
+            <tr style="background-color: #bee5eb;">
+                <th style="padding: 20px; text-align: center;">Название товара</th>
+                <th style="padding: 20px; text-align: center;">Количество</th>
+                <th style="padding: 20px; text-align: center;">Стоимость</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="orderItem : ${order.orderItems}">
+                <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;" th:text="${orderItem.product.title}"/>
+                <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;" th:text="${orderItem.quantity}"/>
+                <td style="border-top: 1px solid #dee2e6; padding: 20px; text-align: center;" th:text="${orderItem.totalPrice}"/>
+            </tr>
+            <tr>
+                <td style="padding: 20px; font-style: italic; text-align: center;"><b>Итоговая сумма:</b></td>
+                <td style="padding: 20px; font-style: italic; text-align: center;"></td>
+                <td style="padding: 20px; font-style: italic; text-align: center;" th:utext="'<b>' + ${order.price}+ '</b>'"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <span th:text="'Адрес доставки: ' + ${order.deliveryAddress.address}"/>
+        <br>
+        <span th:text="'Номер телефона: ' + ${order.phoneNumber}"/>
+        <br>
+        <div class="col-sm-6 controls">
+            <a class="btn btn-secondary" th:href="@{/admin/orders}">Вернуться назад</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
